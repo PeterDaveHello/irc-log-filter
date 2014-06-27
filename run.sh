@@ -4,7 +4,7 @@ OUTPUT="filtered-irclogs" #filtered irc log output
 SERVER="IRC-SERVER-NAME" #eg. freenode
 CHANNEL="IRC-CHANNEL-NAME" #eg. debian
 
-mkdir -p $OUTPUT
+mkdir -p $(eval echo "$OUTPUT")
 
 if [ "$1" = "all" ];then
     DATES="`ls $(eval echo $SOURCE) | grep ^irc-$SERVER-#$CHANNEL\ $SERVER | sed '$d' | rev | cut -c -8 | rev`"
@@ -19,5 +19,5 @@ else
         YESTERDAY=`date +%Y%m%d --date="yesterday"`
     fi
     FILE="$(eval echo "$SOURCE")`ls $(eval echo "$SOURCE") | grep irc-$SERVER-#$CHANNEL\ $SERVER$YESTERDAY`"
-    cat "$FILE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$YESTERDAY
+    cat "$FILE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $(eval echo "$OUTPUT")/$YESTERDAY
 fi
