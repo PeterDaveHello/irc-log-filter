@@ -13,7 +13,11 @@ if [ "$1" = "all" ];then
         cat "$(eval echo "$SOURCE\irc-$SERVER-#$CHANNEL $SERVER")$DATE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$DATE
     done
 else
-    YESTERDAY=`date -v-1d "+%Y%m%d"`
+    if [ "`uname`" = "FreeBSD" ];then
+        YESTERDAY=`date -v-1d "+%Y%m%d"`
+    else
+        YESTERDAY=`date +%Y%m%d --date="yesterday"`
+    fi
     FILE="$(eval echo "$SOURCE")`ls $(eval echo "$SOURCE") | grep irc-$SERVER-#$CHANNEL\ $SERVER$YESTERDAY`"
     cat "$FILE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$YESTERDAY
 fi
