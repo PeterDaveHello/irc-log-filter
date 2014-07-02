@@ -10,7 +10,7 @@ if [ "$1" = "all" ];then
     DATES="`ls $(eval echo $SOURCE) | grep ^irc-$SERVER-#$CHANNEL\ $SERVER | sed '$d' | rev | cut -c -8 | rev`"
     for DATE in $DATES
     do
-        cat "$(eval echo "$SOURCE\irc-$SERVER-#$CHANNEL $SERVER")$DATE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$DATE
+        cat "$(eval echo "$SOURCE\irc-$SERVER-#$CHANNEL $SERVER")$DATE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$DATE
     done
 else
     if [ "`uname`" = "FreeBSD" ];then
@@ -19,5 +19,5 @@ else
         YESTERDAY=`date +%Y%m%d --date="yesterday"`
     fi
     FILE="$(eval echo "$SOURCE")`ls $(eval echo "$SOURCE") | grep irc-$SERVER-#$CHANNEL\ $SERVER$YESTERDAY`"
-    cat "$FILE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- Log opened |^--- Log closed |^[0-9]{2}:[0-9]{2} !)' > $(eval echo "$OUTPUT")/$YESTERDAY
+    cat "$FILE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- |^[0-9]{2}:[0-9]{2} !)' > $(eval echo "$OUTPUT")/$YESTERDAY
 fi
