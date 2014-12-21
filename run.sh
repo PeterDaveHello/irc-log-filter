@@ -10,7 +10,7 @@ if [ "$1" = "all" ];then
     DATES="`ls $(eval echo $SOURCE) | grep ^irc-$SERVER-#$CHANNEL\ $SERVER | sed '$d' | rev | cut -c -8 | rev`"
     for DATE in $DATES
     do
-        cat "$(eval echo "$SOURCE\irc-$SERVER-#$CHANNEL $SERVER")$DATE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- |^[0-9]{2}:[0-9]{2} !)' > $OUTPUT/$DATE
+        cat "$(eval echo "$SOURCE\irc-$SERVER-#$CHANNEL $SERVER")$DATE" | grep -E -v '(^[0-9]{2}:[0-9]{2} -!- |^--- |^[0-9]{2}:[0-9]{2} !)' >> $(eval echo $OUTPUT)/$DATE
     done
 else
     if [ "`uname`" = "FreeBSD" ];then
